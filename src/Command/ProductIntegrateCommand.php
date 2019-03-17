@@ -2,52 +2,71 @@
 
 namespace App\Command;
 
-use App\Domain\ComputeRotation;
+use App\Feeder\Feeder;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Finder\Finder;
 
 class ProductIntegrateCommand extends Command
 {
     protected static $defaultName = 'app:product:integrate';
 
-    private $computeRotation;
+    /**
+     * @var Feeder
+     */
+    private $feeder;
 
-    public function __construct(ComputeRotation $computeRotation, $name = null)
+    /**
+     * ProductIntegrateCommand constructor.
+     * @param Feeder $feeder
+     * @param null $name
+     */
+    public function __construct(Feeder $feeder, $name = null)
     {
-        $this->computeRotation = $computeRotation;
-
+        $this->feeder = $feeder;
         parent::__construct($name);
     }
+
 
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->setDescription('Product integration')
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
 
         $output->writeln([
-            'Compute rotation rate',
+            'Product integration',
             '============',
             '',
         ]);
 
-        $computeRotation = new ComputeRotation();
-        $statement = $this->connection->executeQuery('SELECT build_routine(\''.$name.'\', \''.$content.'\')');
-        $statement->fetchAll();
+        $finder = new Finder();
+        $finder->files()->in('data');
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        // get all files
+        $files = [];
+        foreach ($finder as $file) {
+            array_push($files, $file->getRealPath());
+        }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        //todo : add a system for selecting a new file
+
+        // integrate
+        $this->feeder->integrateProduct($files[1]);
+
+        $io->success('Products have been integrated');
     }
 }

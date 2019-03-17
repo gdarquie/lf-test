@@ -22,8 +22,11 @@ php bin/console server:run
 ```
 
 ## Integrate the data 
+```
+php bin/console app:product:integrate
+php bin/console app:order:integrate
 
-Go to the folowing url : /feeder
+```
 
 ## Compute Rotation rate
 
