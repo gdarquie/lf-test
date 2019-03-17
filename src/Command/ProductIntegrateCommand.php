@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Domain\ComputeRotation;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +13,15 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ProductIntegrateCommand extends Command
 {
     protected static $defaultName = 'app:product:integrate';
+
+    private $computeRotation;
+
+    public function __construct(ComputeRotation $computeRotation, $name = null)
+    {
+        $this->computeRotation = $computeRotation;
+
+        parent::__construct($name);
+    }
 
     protected function configure()
     {
@@ -25,15 +35,18 @@ class ProductIntegrateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
+        $output->writeln([
+            'Compute rotation rate',
+            '============',
+            '',
+        ]);
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
+        $computeRotation = new ComputeRotation();
+        $statement = $this->connection->executeQuery('SELECT build_routine(\''.$name.'\', \''.$content.'\')');
+        $statement->fetchAll();
+
+        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
     }

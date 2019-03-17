@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Domain\ComputeRotation;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,31 +14,28 @@ class RotationComputeCommand extends Command
 {
     protected static $defaultName = 'app:rotation:compute';
 
+    private $computeRotation;
+
+    public function __construct(ComputeRotation $computeRotation, $name = null)
+    {
+        $this->computeRotation = $computeRotation;
+
+        parent::__construct($name);
+    }
+
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->setDescription('Compute rotation rate for product = number of sold products by week')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
+        $this->computeRotation->process();
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        // récupère le 1er et le dernier jour de commande par défaut, sinon possible d'ajouter un début et une fin
-        // applique le taux à tous les produits
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Rotation computation succed!');
     }
 }
