@@ -75,7 +75,7 @@
             </tr>
             {% for supplier in suppliers %}
                 <tr>
-                    <td>{{ supplier.name }}</td>
+                    <td><a href="{{ path('monitor_supplier', {'supplierId' : supplier.id}) }}">{{ supplier.name }}</a></td>
                     <td>{{ supplier.createdAt|date("d/m/Y") }}</td>
                 </tr>
             {% endfor %}

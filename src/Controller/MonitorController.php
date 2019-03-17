@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Supplier;
-use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class MonitorController extends AbstractController
 {
     /**
+     * todo: to many code in this function, needs to be refacto
+     *
      * @Route("/monitor", name="monitor")
      */
     public function index(Request $request)
@@ -82,6 +83,21 @@ class MonitorController extends AbstractController
             'products' => $products,
             'suppliers' => $suppliers,
             'orders' => $orders
+        ));
+    }
+
+    /**
+     * @Route("/monitor/supplier/{supplierId}", name="monitor_supplier")
+     */
+    public function getSupplier($supplierId)
+    {
+        $supplier = $this->getDoctrine()->getRepository(Supplier::class)->findOneById($supplierId);
+        //todo : add some pagination
+        $products = $this->getDoctrine()->getRepository(Product::class)->findBySupplier($supplier);
+
+        return $this->render('supplier.html.twig', array(
+            'supplier' => $supplier,
+            'products' => $products
         ));
     }
 }

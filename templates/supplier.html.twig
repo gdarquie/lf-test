@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <h2>Page fournisseur : {{ supplier.name }}</h2>
+
+
+        <h2>Produits à recommander (2 semaines de stock)</h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Produit</th>
+                <th>Référence SKU</th>
+                <th>Acquis</th>
+                <th>Vendus</th>
+                <th>En stock</th>
+                <th>Taux de rotation</th>
+            </tr>
+            {% for product  in products %}
+                {% if ((product.rotation)*2) > (product.aquired - product.sold) %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.externalId }}</td>
+                        <td>{{ product.aquired }}</td>
+                        <td>{{ product.sold }}</td>
+                        <td>{{ product.aquired - product.sold }}</td>
+                        <td>{{ product.rotation }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+
+        <p>Nous souhaiterions recommander les produits listés ci-dessus.</p>
+
+        <button>Envoyer un mail</button>
+        <hr>
+        <p><a href="{{ path('monitor') }}">Retour</a></p>
+
+    </section>
+{% endblock %}
