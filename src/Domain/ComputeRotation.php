@@ -31,7 +31,9 @@ class ComputeRotation
     public function process()
     {
         //todo = add error and exception management
-        $sql = $this->getProcedure();
+        $query = $this->getProcedure();
+        $statement = $this->connection->executeQuery($query);
+        $statement->fetchAll();
 
         $query = 'SELECT compute_rotation()';
         $statement = $this->connection->executeQuery($query);

@@ -15,8 +15,25 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
-## Start application
+## Start the application
 
 ```
 php bin/console server:run
 ```
+
+## Integrate the data 
+
+Go to the folowing url : "/feeder"
+
+## Compute Rotation rate
+
+```
+php bin/console app:rotation:compute
+```
+
+## Test the application
+
+```
+php bin/phpunit
+```
+
