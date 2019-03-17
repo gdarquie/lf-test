@@ -54,7 +54,7 @@ class ProductIntegrateCommand extends Command
         ]);
 
         $finder = new Finder();
-        $finder->files()->in('data');
+        $finder->files()->in('data/product');
 
         // get all files
         $files = [];
@@ -65,7 +65,7 @@ class ProductIntegrateCommand extends Command
         //todo : add a system for selecting a new file
 
         // integrate
-        $this->feeder->integrateProduct($files[1]);
+        $this->feeder->integrateProduct($files[0]);
 
         $io->success('Products have been integrated');
     }

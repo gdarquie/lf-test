@@ -54,7 +54,7 @@ class AppOrderIntegrateCommand extends Command
         ]);
 
         $finder = new Finder();
-        $finder->files()->in('data');
+        $finder->files()->in('data/order');
 
         // get all files
         $files = [];
@@ -68,6 +68,6 @@ class AppOrderIntegrateCommand extends Command
         // integrate
         $this->feeder->integrateOrder($files[0]);
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Order integration succeds.');
     }
 }
