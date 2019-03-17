@@ -23,7 +23,7 @@ php bin/console server:run
 
 ## Integrate the data 
 
-Go to the folowing url : "/feeder"
+Go to the folowing url : /feeder
 
 ## Compute Rotation rate
 
@@ -37,3 +37,6 @@ php bin/console app:rotation:compute
 php bin/phpunit
 ```
 
+## Watch the result
+
+Go to url : /monitor
