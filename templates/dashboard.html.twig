@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <h2>Synthèse</h2>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Total des fournisseurs</th>
+                <th>Total des références</th>
+                <th>Total des commandes</th>
+            </tr>
+            <tr>
+                <td>{{ suppliersNb }}</td>
+                <td>{{ productsNb }}</td>
+                <td>{{ ordersNb }}</td>
+            </tr>
+        </table>
+
+        <h2>Fournisseurs</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Création</th>
+            </tr>
+            {% for supplier in suppliers %}
+                <tr>
+                    <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.createdAt|date("d/m/Y") }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Produits</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Produit</th>
+                <th>Référence SKU</th>
+                <th>Acquis</th>
+                <th>Vendus</th>
+                <th>En stock</th>
+                <th>Taux de rotation</th>
+            </tr>
+            {% for product  in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.externalId }}</td>
+                    <td>{{ product.aquired }}</td>
+                    <td>{{ product.sold }}</td>
+                    <td>{{ product.aquired - product.sold }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Commandes</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>N° commande</th>
+                <th>Date</th>
+                <th>Quantité</th>
+            </tr>
+
+            <tr></tr>
+        </table>
+    </section>
+{% endblock %}

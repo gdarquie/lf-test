@@ -1,0 +1,22 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> phpstorm ###
+.idea/*
+###> phpstorm ###
+
+###> mac OSX ###
+.DS_Store
+###> max OSX ###
