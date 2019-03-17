@@ -37,6 +37,13 @@ class Order extends AbstractEntity
      */
     private $quantity;
 
+    /**
+     * @return mixed
+     */
+    public function getExternalId()
+    {
+        return $this->externalId;
+    }
 
     public function setExternalId(string $externalId): self
     {

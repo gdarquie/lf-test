@@ -20,3 +20,8 @@
 ###> mac OSX ###
 .DS_Store
 ###> max OSX ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###

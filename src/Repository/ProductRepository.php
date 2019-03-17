@@ -23,7 +23,6 @@ class ProductRepository extends ServiceEntityRepository
         $this->em = $em;
     }
 
-
     /**
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -34,6 +33,14 @@ class ProductRepository extends ServiceEntityRepository
             'SELECT COUNT(p.id) FROM ' . Product::class.' p');
 
         return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('product')->orderBy('product.externalId');
     }
 
 }

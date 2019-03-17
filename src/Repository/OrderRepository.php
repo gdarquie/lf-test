@@ -36,4 +36,12 @@ class OrderRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('o');
+    }
+
 }

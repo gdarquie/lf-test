@@ -111,7 +111,13 @@
                 <th>Quantité</th>
             </tr>
 
-            <tr></tr>
+            {% for order  in orders %}
+                <tr>
+                    <td>{{ order.externalId }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.date|date("d/m/Y")  }}</td>
+                </tr>
+            {% endfor %}
         </table>
     </section>
 {% endblock %}
